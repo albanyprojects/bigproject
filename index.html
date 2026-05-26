@@ -10,18 +10,40 @@
             box-sizing: border-box;
         }
 
-        body {
-			    background-image: url('background.png');
-    			background-size: cover;
-   				background-position: center;
-  	 		    background-repeat: no-repeat;
-            margin: 0;
-            min-height: 100vh;
-            background-color: white;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-        }
+  margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* Background image */
+        background-image: url('background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-button {
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-button:hover {
+        background-color: #0056b3;
+    }
 
         /* Top blue header */
         .top-header {
