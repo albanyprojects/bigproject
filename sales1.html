@@ -6,8 +6,41 @@
   <title>pallet-profitability-calculator</title> <!-- this is meant to be the title, im not sure how well this works on normal index.html browser file -->
 
   <style>
+     margin: 0;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+
+    <!-- loader container -->
+    .loader-container {
+      position: fixed;
+      right: 300px;
+      top: 75%;
+      transform: translateY(-5%);
+    }
+
+ 
+    .loader {   
+      width: 100px;
+      height: 100px;
+      border: 12px solid #dcdcdc;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     .footer {
-  margin-top: 30px;
+  margin-top: 300px;
   text-align: center;
   font-size: 14px;
   color: blue;
@@ -76,8 +109,7 @@
   <div class="top-text">Welcome!</div>
 
   <div class="box">
-    <p>for sales team 1</p>
-     font-family: "Comic Sans MS", sans-serif;
+    <p>for sales team number 1 ------------------------------------------------------ </p>
   </div>
 
 
@@ -171,6 +203,9 @@
         "Rough profit estimate: £" + falseprofit.toFixed(2);
     }
   </script>
+ <div class="loader-container">
+    <div class="loader"></div>
+  </div>
 
 </body>
 </html>
