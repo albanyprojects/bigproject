@@ -6,15 +6,16 @@
     <title>Sales Navigation</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+    <style>
+    * {
+        box-sizing: border-box;
+    }
 
-  margin: 0;
+    body {
+        margin: 0;
         height: 100vh;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
 
         /* Background image */
         background-image: url('background.png');
@@ -25,75 +26,56 @@
         font-family: Arial, sans-serif;
     }
 
+    /* Top blue header */
+    .top-header {
+        width: 100%;
+        background-color: #0d47a1;
+        color: white;
+        padding: 25px 40px;
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    /* Brown sub-header */
+    .sub-header {
+        width: 100%;
+        background-color: #8B4513;
+        color: white;
+        padding: 15px 40px;
+        font-size: 18px;
+    }
+
+    /* Main content area */
+    .main-content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .container {
         display: flex;
         gap: 20px;
+        flex-wrap: wrap;
     }
 
     .nav-button {
-        padding: 15px 30px;
+        padding: 15px 35px;
         font-size: 18px;
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        background-color: #007bff;
+        background-color: #0d47a1;
         color: white;
-        transition: background-color 0.3s ease;
+        transition: 0.3s ease;
+        font-weight: bold;
     }
 
     .nav-button:hover {
-        background-color: #0056b3;
+        background-color: #08306b;
+        transform: translateY(-2px);
     }
-
-        /* Top blue header */
-        .top-header {
-            width: 100%;
-            background-color: #0d47a1;
-            color: white;
-            padding: 25px 40px;
-            font-size: 32px;
-            font-weight: bold;
-        }
-
-        /* Brown sub-header */
-        .sub-header {
-            width: 100%;
-            background-color: #8B4513;
-            color: white;
-            padding: 15px 40px;
-            font-size: 18px;
-        }
-
-        /* Main content area */
-        .main-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .nav-button {
-            padding: 15px 35px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #0d47a1;
-            color: white;
-            transition: 0.3s ease;
-            font-weight: bold;
-        }
-
-        .nav-button:hover {
-            background-color: #08306b;
-            transform: translateY(-2px);
-        }
+</style>
     </style>
 </head>
 <body>
