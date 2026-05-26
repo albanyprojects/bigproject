@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pallet-profitability-calculator</title> <!-- this is meant to be the title, im not sure how well this works on normal index.html browser file -->
+
+  <style>
+     margin: 0;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+
+    <!-- loader container -->
+    .loader-container {
+      position: fixed;
+      right: 300px;
+      top: 75%;
+      transform: translateY(-5%);
+    }
+
+ 
+    .loader {   
+      width: 100px;
+      height: 100px;
+      border: 12px solid #dcdcdc;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .footer {
+  margin-top: 300px;
+  text-align: center;
+  font-size: 14px;
+  color: blue;
+}
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      background-color: #1ca3ec;
+      font-family: "Comic Sans MS", sans-serif;
+      padding: 20px;
+    }
+
+    .top-text {
+      text-decoration: underline;
+      color: orange;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 32px;
+      background-color: brown;
+      padding: 15px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 550px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px 0;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      background: orange;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="top-text">Welcome!</div>
+
+  <div class="box">
+    <p>for sales team number 1 ------------------------------------------------------ </p>
+  </div>
+
+
+
+
+  <div class="top-text">
+    Pallet Profitability Calculator
+  </div>
+
+  <div class="box">
+
+    <label>Delivery cost per hour</label>
+    <input id="deliverycost" type="number">
+
+    <label>Base sale value</label>
+    <input id="sale" type="number">
+
+    <label>Cases</label>
+    <input id="cases" type="number">
+
+    <label>Cases per pallet</label>
+    <input id="casepal" type="number">
+
+    <label>Number of pallets</label>
+    <input id="pallet" type="number">
+
+    <label>Stackable pallets?</label>
+    <input id="stackable" type="checkbox">
+
+    <label>Storage hours</label>
+    <input id="hours" type="number">
+
+    <label>Lorry cost</label>
+    <input id="lorry" type="number">
+
+    <button onclick="calculateProfit()">Calculate Profit</button>
+
+    <div class="result" id="result"></div>
+
+  </div>
+
+  <script>
+    function calculateProfit() {
+
+      let deliverycost = parseFloat(document.getElementById("deliverycost").value);
+      let sale = parseFloat(document.getElementById("sale").value);
+      let cases = parseInt(document.getElementById("cases").value);
+      let casepal = parseInt(document.getElementById("casepal").value);
+      let pallet = parseFloat(document.getElementById("pallet").value);
+      let hours = parseInt(document.getElementById("hours").value);
+      let lorry = parseFloat(document.getElementById("lorry").value);
+
+      let stackable = document.getElementById("stackable").checked;
+
+      let totaldelcost = deliverycost * hours;
+      let actualsale = sale - totaldelcost;
+
+      let newtot = 0;
+      let falseprofit = 0;
+
+      if (stackable) {
+
+        if (pallet <= 52) {
+          falseprofit = actualsale - lorry;
+        }
+        else if (pallet <= 104) {
+          newtot = lorry * 2;
+          falseprofit = actualsale - newtot;
+        }
+        else {
+          document.getElementById("result").innerText = "We don't go that far yet.";
+          return;
+        }
+
+      } else {
+
+        if (pallet <= 26) {
+          falseprofit = actualsale - lorry;
+        }
+        else if (pallet <= 52) {
+          newtot = lorry * 2;
+          falseprofit = actualsale - newtot;
+        }
+        else {
+          document.getElementById("result").innerText = "What do you think this is?";
+          return;
+        }
+      }
+
+      document.getElementById("result").innerText =
+        "Rough profit estimate: £" + falseprofit.toFixed(2);
+    }
+  </script>
+ <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+
+</body>
+</html>
