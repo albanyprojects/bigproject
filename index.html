@@ -6,57 +6,103 @@
     <title>Sales Navigation</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
+            background-color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top blue header */
+        .top-header {
+            width: 100%;
+            background-color: #0d47a1;
+            color: white;
+            padding: 25px 40px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        /* Brown sub-header */
+        .sub-header {
+            width: 100%;
+            background-color: #6d4c41;
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
         }
-        
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 15px 35px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #0d47a1;
+            color: white;
+            transition: 0.3s ease;
+            font-weight: bold;
+        }
+
+        .nav-button:hover {
+            background-color: #08306b;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+	        
         /* Background image */
         background-image: url('background.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
 
-        .container {
-            display: flex;
-            gap: 20px;
-        }
+    <div class="top-header">
+        Pallet-Profitability-Calculator-Index
+    </div>
 
-        .nav-button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            transition: background-color 0.3s ease;
-        }
+    <div class="sub-header">
+        Select Your Calculator Formula Below
+    </div>
 
-        .nav-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
+    <div class="main-content">
+        <div class="container">
 
-    <div class="container">
-        <button class="nav-button" onclick="location.href='sales1.html'">
-            Sales 1
-        </button>
+            <button class="nav-button" onclick="location.href='sales1.html'">
+                Sales 1
+            </button>
 
-        <button class="nav-button" onclick="location.href='sales2.html'">
-            Sales 2
-        </button>
+            <button class="nav-button" onclick="location.href='sales2.html'">
+                Sales 2
+            </button>
 
-        <button class="nav-button" onclick="location.href='sales3.html'">
-            Sales 3
-        </button>
+            <button class="nav-button" onclick="location.href='sales3.html'">
+                Sales 3
+            </button>
+
+        </div>
     </div>
 
 </body>
