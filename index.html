@@ -46,8 +46,9 @@
         .main-content {
             flex: 1;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding-left: 60px;
+            padding: 40px 60px;
         }
 
         .container {
@@ -84,6 +85,21 @@
         .nav-button:active {
             transform: scale(0.98);
         }
+
+        .logo-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .logo-container img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+
+            filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
+        }
     </style>
 </head>
 
@@ -98,6 +114,7 @@
     </div>
 
     <div class="main-content">
+
         <div class="container">
 
             <button class="nav-button" onclick="location.href='sales1.html'">
@@ -113,6 +130,11 @@
             </button>
 
         </div>
+
+        <div class="logo-container">
+            <img src="logo.png" alt="Company Logo">
+        </div>
+
     </div>
 
 </body>
