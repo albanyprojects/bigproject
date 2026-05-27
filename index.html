@@ -6,77 +6,88 @@
     <title>Sales Navigation</title>
 
     <style>
-    <style>
-    * {
-        box-sizing: border-box;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
 
-        background-image: url('background.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
 
-        font-family: Arial, sans-serif;
-    }
+            font-family: Arial, sans-serif;
+        }
 
-    .top-header {
-        width: 100%;
-        background-color: #0d47a1;
-        color: white;
-        padding: 25px 40px;
-        font-size: 32px;
-        font-weight: bold;
-    }
+        .top-header {
+            width: 100%;
+            background-color: #0d47a1;
+            color: white;
+            padding: 25px 40px;
+            font-size: 32px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
 
-    .sub-header {
-        width: 100%;
-        background-color: #FFA700;
-        color: white;
-        padding: 15px 40px;
-        font-size: 18px;
-    }
-    .main-content {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        .sub-header {
+            width: 100%;
+            background-color: #FFA700;
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
 
-    .container {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding-left: 60px;
+        }
 
-    .nav-button {
-        padding: 15px 35px;
-        font-size: 18px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        background-color: #0d47a1;
-        color: white;
-        transition: 0.3s ease;
-        font-weight: bold;
-    }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    .nav-button:hover {
-        background-color: #08306b;
-        transform: translateY(-14px);
-    }
-</style>
+        .nav-button {
+            width: 220px;
+            padding: 18px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+            color: white;
+
+            font-weight: bold;
+            letter-spacing: 0.5px;
+
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+
+            transition: all 0.25s ease;
+        }
+
+        .nav-button:hover {
+            background: linear-gradient(135deg, #1976d2, #0b3c91);
+            transform: translateX(8px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+        }
+
+        .nav-button:active {
+            transform: scale(0.98);
+        }
     </style>
 </head>
+
 <body>
-
-	        
-
 
     <div class="top-header">
         Pallet-Profitability-Calculator-Index
