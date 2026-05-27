@@ -13,25 +13,33 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
 
     .calculator {
       background: #2d2d2d;
-      padding: 20px;
-      border-radius: 12px;
-      width: 300px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      padding: 40px;
+      border-radius: 25px;
+
+      /* MUCH BIGGER */
+      width: 800px;
+      max-width: 95vw;
+
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
     }
 
     #display {
       width: 100%;
-      height: 60px;
-      font-size: 28px;
+      height: 120px;
+
+      /* BIGGER TEXT */
+      font-size: 52px;
+
       text-align: right;
-      margin-bottom: 15px;
+      margin-bottom: 25px;
       border: none;
-      border-radius: 8px;
-      padding: 10px;
+      border-radius: 15px;
+      padding: 20px;
       box-sizing: border-box;
       background: #f4f4f4;
     }
@@ -39,14 +47,17 @@
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 20px;
     }
 
     button {
-      height: 60px;
-      font-size: 22px;
+      height: 120px;
+
+      /* BIGGER BUTTON TEXT */
+      font-size: 42px;
+
       border: none;
-      border-radius: 8px;
+      border-radius: 15px;
       cursor: pointer;
       background: #444;
       color: white;
@@ -55,6 +66,7 @@
 
     button:hover {
       background: #666;
+      transform: scale(1.03);
     }
 
     .operator {
@@ -80,14 +92,36 @@
     .clear:hover {
       background: darkred;
     }
+
+    /* MOBILE SUPPORT */
+    @media (max-width: 700px) {
+
+      .calculator {
+        width: 95vw;
+        padding: 20px;
+      }
+
+      #display {
+        height: 80px;
+        font-size: 36px;
+      }
+
+      button {
+        height: 80px;
+        font-size: 28px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <div class="calculator">
+
     <input type="text" id="display" readonly>
 
     <div class="buttons">
+
       <button class="clear" onclick="clearDisplay()">C</button>
       <button onclick="appendValue('(')">(</button>
       <button onclick="appendValue(')')">)</button>
@@ -112,7 +146,9 @@
       <button onclick="appendValue('.')">.</button>
       <button onclick="deleteLast()">⌫</button>
       <button class="equal" onclick="calculate()">=</button>
+
     </div>
+
   </div>
 
   <script>
