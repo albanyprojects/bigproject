@@ -178,8 +178,6 @@ function calculateProfit() {
   let lorry = parseFloat(document.getElementById("lorry").value);
 
   let stackable = document.getElementById("stackable").checked;
-
-  // New storage/delivery calculation
   let totaldelcost = deliverycost + (1.72 * hours);
 
   let actualsale = sale - totaldelcost;
