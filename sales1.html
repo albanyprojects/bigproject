@@ -135,7 +135,7 @@
 
   <div class="box">
 
-    <label>Delivery cost per hour</label>
+    <label>warehousing cost</label>
     <input id="deliverycost" type="number">
 
     <label>Base sale value</label>
@@ -166,56 +166,59 @@
   </div>
 
   <script>
-    function calculateProfit() {
+function calculateProfit() {
 
-      let deliverycost = parseFloat(document.getElementById("deliverycost").value);
-      let sale = parseFloat(document.getElementById("sale").value);
-      let cases = parseInt(document.getElementById("cases").value);
-      let casepal = parseInt(document.getElementById("casepal").value);
-      let pallet = parseFloat(document.getElementById("pallet").value);
-      let hours = parseInt(document.getElementById("hours").value);
-      let lorry = parseFloat(document.getElementById("lorry").value);
+  const deliverycost = 4.24; // constant base delivery cost
 
-      let stackable = document.getElementById("stackable").checked;
+  let sale = parseFloat(document.getElementById("sale").value);
+  let cases = parseInt(document.getElementById("cases").value);
+  let casepal = parseInt(document.getElementById("casepal").value);
+  let pallet = parseFloat(document.getElementById("pallet").value);
+  let hours = parseInt(document.getElementById("hours").value);
+  let lorry = parseFloat(document.getElementById("lorry").value);
 
-      let totaldelcost = deliverycost * hours;
-      let actualsale = sale - totaldelcost;
+  let stackable = document.getElementById("stackable").checked;
 
-      let newtot = 0;
-      let falseprofit = 0;
+  // New storage/delivery calculation
+  let totaldelcost = deliverycost + (1.72 * hours);
 
-      if (stackable) {
+  let actualsale = sale - totaldelcost;
 
-        if (pallet <= 52) {
-          falseprofit = actualsale - lorry;
-        }
-        else if (pallet <= 104) {
-          newtot = lorry * 2;
-          falseprofit = actualsale - newtot;
-        }
-        else {
-          document.getElementById("result").innerText = "We don't go that far yet.";
-          return;
-        }
+  let newtot = 0;
+  let falseprofit = 0;
 
-      } else {
+  if (stackable) {
 
-        if (pallet <= 26) {
-          falseprofit = actualsale - lorry;
-        }
-        else if (pallet <= 52) {
-          newtot = lorry * 2;
-          falseprofit = actualsale - newtot;
-        }
-        else {
-          document.getElementById("result").innerText = "What do you think this is?";
-          return;
-        }
-      }
-
-      document.getElementById("result").innerText =
-        "Rough profit estimate: £" + falseprofit.toFixed(2);
+    if (pallet <= 52) {
+      falseprofit = actualsale - lorry;
     }
+    else if (pallet <= 104) {
+      newtot = lorry * 2;
+      falseprofit = actualsale - newtot;
+    }
+    else {
+      document.getElementById("result").innerText = "We don't go that far yet.";
+      return;
+    }
+
+  } else {
+
+    if (pallet <= 26) {
+      falseprofit = actualsale - lorry;
+    }
+    else if (pallet <= 52) {
+      newtot = lorry * 2;
+      falseprofit = actualsale - newtot;
+    }
+    else {
+      document.getElementById("result").innerText = "What do you think this is?";
+      return;
+    }
+  }
+
+  document.getElementById("result").innerText =
+    "Rough profit estimate: £" + falseprofit.toFixed(2);
+}
   </script>
  <div class="loader-container">
     <div class="loader"></div>
