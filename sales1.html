@@ -171,9 +171,7 @@
 
       let transportCost = 0;
 
-      if (stackable) {
-        let capacityPerLorry;
-let message = "";
+let capacityPerLorry;
 
 if (stackable) {
   capacityPerLorry = 52;
@@ -183,8 +181,7 @@ if (stackable) {
 
 const lorriesNeeded = Math.ceil(pallet / capacityPerLorry);
 
-       
-      }
+transportCost = lorriesNeeded * lorry;
 
       let profit =
         sale -
