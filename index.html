@@ -24,6 +24,11 @@
             font-family: "Times New Roman", sans-serif;
         }
 
+        body.locked {
+            overflow: hidden;
+            pointer-events: none;
+        }
+
         .top-header {
             width: 100%;
             background-color: #0d47a1;
@@ -97,7 +102,6 @@
             max-width: 400px;
             width: 100%;
             height: auto;
-
             filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
         }
 
@@ -105,12 +109,65 @@
             width: 100%;
             background-color: #111;
             color: #ccc;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 12px 20px;
             font-size: 14px;
             letter-spacing: 0.4px;
-
             border-top: 2px solid #222;
+        }
+
+        .footer-btn {
+            background: #0d47a1;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .footer-btn:hover {
+            background: #1565c0;
+        }
+
+        /* COOKIE POPUP */
+        .cookie-popup {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #111;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .cookie-popup button {
+            margin-left: 10px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .accept {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .decline {
+            background: #c62828;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -150,8 +207,34 @@
     </div>
 
     <footer>
-        © 2026 Pallet Profitability Calculator | Internal Sales Tools Dashboard
+        <div>© 2026 Pallet Profitability Calculator | Internal Sales Tools Dashboard</div>
+
+        <button class="footer-btn" onclick="location.href='terms.html'">
+            Terms & Conditions
+        </button>
     </footer>
+
+    <!-- COOKIE POPUP -->
+    <div class="cookie-popup" id="cookiePopup">
+        <div>
+            This site uses cookies to function properly. Do you accept cookies to continue?
+        </div>
+        <div>
+            <button class="accept" onclick="acceptCookies()">Accept</button>
+            <button class="decline" onclick="declineCookies()">Decline</button>
+        </div>
+    </div>
+
+    <script>
+        function acceptCookies() {
+            document.getElementById('cookiePopup').classList.add('hidden');
+        }
+
+        function declineCookies() {
+            alert("You must accept cookies to use this site.");
+            document.body.innerHTML = "<h1 style='text-align:center;margin-top:50px;'>Access Denied</h1>";
+        }
+    </script>
 
 </body>
 </html>
