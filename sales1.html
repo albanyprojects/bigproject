@@ -172,32 +172,27 @@
       let transportCost = 0;
 
       if (stackable) {
+        let capacityPerLorry;
+let message = "";
 
-        if (pallet <= 52) {
-          transportCost = lorry;
-        }
-        else if (pallet <= 104) {
-          transportCost = lorry * 2;
-        }
-        else {
-          document.getElementById("result").innerText =
-            "We don't go that far yet.";
-          return;
-        }
+// set capacity based on stacking type
+if (stackable) {
+  capacityPerLorry = 52;
+} else {
+  capacityPerLorry = 26;
+}
 
-      } else {
+// calculate number of lorries needed (always rounds up)
+const lorriesNeeded = Math.ceil(pallet / capacityPerLorry);
 
-        if (pallet <= 26) {
-          transportCost = lorry;
-        }
-        else if (pallet <= 52) {
-          transportCost = lorry * 2;
-        }
-        else {
-          document.getElementById("result").innerText =
-            "We currently are not this detailed in our calculations yet";
-          return;
-        }
+// optional: safety check (only if you still want a limit)
+if (lorriesNeeded <= 0) {
+  transportCost = 0;
+} else {
+  transportCost = lorriesNeeded * lorry;
+}
+
+       
       }
 
       let profit =
