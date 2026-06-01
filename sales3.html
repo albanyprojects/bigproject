@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,8 +109,9 @@
 
     .result {
       margin-top: 15px;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
+      line-height: 1.6;
     }
 
   </style>
@@ -129,25 +131,27 @@
 
   <div class="box">
 
-    <label>Base Sale Value (£)</label>
-    <input id="sale" type="number">
+    <label>Customer Sale Value (£)</label>
+    <input id="sale" type="number" step="0.01">
 
-    <label>Total Purchasing Cost (£)</label>
-    <input id="purchasecost" type="number">
+    <label>Supplier Quote (£)</label>
+    <input id="purchasecost" type="number" step="0.01">
 
     <label>Number of Pallets</label>
     <input id="pallet" type="number">
 
-    <label>Stackable Pallets?</label>
-    <input id="stackable" type="checkbox">
+    <label>Current Warehouse Hours</label>
+    <input id="warehouse" type="number">
 
-    <label>Storage Hours</label>
-    <input id="hours" type="number">
+    <label>Future Warehouse Hours</label>
+    <input id="warehousefuture" type="number">
 
     <label>Lorry Cost (£)</label>
-    <input id="lorry" type="number">
+    <input id="lorry" type="number" step="0.01">
 
-    <button onclick="calculateProfit()">Calculate Profit</button>
+    <button onclick="calculateProfit()">
+      Calculate Profit
+    </button>
 
     <div class="result" id="result"></div>
 
@@ -157,61 +161,119 @@
 
     function calculateProfit() {
 
-      const deliverycost = 4.24;
+      let sale =
+        parseFloat(document.getElementById("sale").value) || 0;
 
-      let sale = parseFloat(document.getElementById("sale").value) || 0;
-      let purchasecost = parseFloat(document.getElementById("purchasecost").value) || 0;
-      let pallet = parseFloat(document.getElementById("pallet").value) || 0;
-      let hours = parseInt(document.getElementById("hours").value) || 0;
-      let lorry = parseFloat(document.getElementById("lorry").value) || 0;
+      let purchasecost =
+        parseFloat(document.getElementById("purchasecost").value) || 0;
 
-      let stackable = document.getElementById("stackable").checked;
+      let pallets =
+        parseFloat(document.getElementById("pallet").value) || 0;
 
-      let totaldelcost = deliverycost + (1.72 * hours);
+      let warehouse =
+        parseInt(document.getElementById("warehouse").value) || 0;
 
-      let transportCost = 0;
+      let warehousefuture =
+        parseInt(document.getElementById("warehousefuture").value) || 0;
 
-      if (stackable) {
+      let lorry =
+        parseFloat(document.getElementById("lorry").value) || 0;
 
-        if (pallet <= 52) {
-          transportCost = lorry;
-        }
-        else if (pallet <= 104) {
-          transportCost = lorry * 2;
-        }
-        else {
-          document.getElementById("result").innerText =
-            "We don't go that far yet.";
-          return;
+      if (pallets <= 0) {
+
+        document.getElementById("result").innerHTML =
+          "<span style='color:red;'>Number of pallets must be greater than zero.</span>";
+
+        return;
+      }
+
+      let totalWarehouseHours =
+        warehouse + warehousefuture;
+
+      let warehouseCost =
+        (totalWarehouseHours * 0.010238095238095239) + 4.24;
+
+      let totalLogisticsCost =
+        warehouseCost + lorry;
+
+      let salePerPallet =
+        sale / pallets;
+
+      let supplierPerPallet =
+        purchasecost / pallets;
+
+      let logisticsPerPallet =
+        totalLogisticsCost / pallets;
+
+      let marginPerPallet =
+        salePerPallet -
+        supplierPerPallet -
+        logisticsPerPallet;
+
+      let totalProfit =
+        sale -
+        purchasecost -
+        totalLogisticsCost;
+
+      let statusMessage = "";
+
+      if (marginPerPallet > 0) {
+
+        statusMessage +=
+          "<span style='color:green;'>This purchase is profitable.</span><br>";
+
+        if (marginPerPallet > 80) {
+
+          statusMessage +=
+            "<span style='color:green;'>Margin exceeds £80 per pallet and is acceptable.</span>";
+
+        } else {
+
+          statusMessage +=
+            "<span style='color:orange;'>Profitable, but margin is below £80 per pallet.</span>";
         }
 
       } else {
 
-        if (pallet <= 26) {
-          transportCost = lorry;
-        }
-        else if (pallet <= 52) {
-          transportCost = lorry * 2;
-        }
-        else {
-          document.getElementById("result").innerText =
-            "What do you think this is?";
-          return;
-        }
+        statusMessage +=
+          "<span style='color:red;'>Choose a different supplier. This order is not profitable.</span>";
       }
 
-      let profit =
-        sale -
-        totaldelcost -
-        transportCost -
-        purchasecost;
-
       document.getElementById("result").innerHTML =
-        "Revenue: £" + sale.toFixed(2) + "<br>" +
-        "Storage Cost: £" + totaldelcost.toFixed(2) + "<br>" +
-        "Transport Cost: £" + transportCost.toFixed(2) + "<br>" +
-        "Purchase Cost: £" + purchasecost.toFixed(2) + "<br><br>" +
-        "<strong>Estimated Profit: £" + profit.toFixed(2) + "</strong>";
+
+        "Total Warehouse Hours: " +
+        totalWarehouseHours +
+        "<br><br>" +
+
+        "Warehouse Cost: £" +
+        warehouseCost.toFixed(2) +
+        "<br>" +
+
+        "Total Logistics Cost: £" +
+        totalLogisticsCost.toFixed(2) +
+        "<br>" +
+
+        "Sale Value Per Pallet: £" +
+        salePerPallet.toFixed(2) +
+        "<br>" +
+
+        "Supplier Cost Per Pallet: £" +
+        supplierPerPallet.toFixed(2) +
+        "<br>" +
+
+        "Logistics Cost Per Pallet: £" +
+        logisticsPerPallet.toFixed(2) +
+        "<br>" +
+
+        "Profit Per Pallet: £" +
+        marginPerPallet.toFixed(2) +
+        "<br><br>" +
+
+        "<strong>Total Estimated Profit: £" +
+        totalProfit.toFixed(2) +
+        "</strong><br><br>" +
+
+        statusMessage;
     }
 
   </script>
@@ -229,3 +291,4 @@
 
 </body>
 </html>
+```
