@@ -153,7 +153,7 @@ input[type="number"]{
 }
 
 .loader-container{
-    display:flex;
+    display:none;
     justify-content:center;
     margin-top:20px;
 }
@@ -275,7 +275,7 @@ footer{
             </iframe>
         </div>
 
-        <div class="loader-container">
+        <div class="loader-container" id="loader">
             <div class="loader"></div>
         </div>
 
@@ -298,6 +298,10 @@ footer{
 </footer>
 
 <script>
+    function showLoader(show){
+    document.getElementById("loader").style.display =
+        show ? "flex" : "none";
+}
 
 function calculateProfit() {
 
