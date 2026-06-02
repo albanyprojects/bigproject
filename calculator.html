@@ -173,13 +173,9 @@
     }
     document.addEventListener("keydown", function (event) {
   const key = event.key;
-
-  // Numbers
   if (!isNaN(key)) {
     appendValue(key);
   }
-
-  // Operators
   else if (key === "+") {
     appendValue("+");
   }
