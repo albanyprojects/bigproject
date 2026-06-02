@@ -1,223 +1,375 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pallet-profitability-calculator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Team 2 Profit Calculator</title>
 
-  <style>
-    .iframe-container {
-      position: fixed;
-      right: 20px;
-      top: 10px;
-      width: 600px;
-      height: 800px;
-      background: white;
-      border: 3px solid black;
-    }
+<style>
 
-    .iframe-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+*{
+    box-sizing:border-box;
+}
 
-    .loader-container {
-      position: fixed;
-      right: 300px;
-      top: 75%;
-      transform: translateY(-5%);
-    }
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
 
-    .loader {
-      width: 100px;
-      height: 100px;
-      border: 12px solid #dcdcdc;
-      border-top: 6px solid #3498db;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
+    background-image:url('background.png');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+    font-family:"Times New Roman", sans-serif;
+}
 
-    html, body {
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-    }
+.top-header{
+    width:100%;
+    background:#0d47a1;
+    color:white;
+    padding:25px 40px;
+    font-size:40px;
+    font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
 
-    body {
-      background-color: #1ca3ec;
-      font-family: "Comic Sans MS", sans-serif;
-      padding: 20px;
-    }
+.sub-header{
+    width:100%;
+    background:#FFA700;
+    color:white;
+    padding:15px 40px;
+    font-size:25px;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
 
-    .top-text {
-      text-decoration: underline;
-      color: orange;
-      font-weight: bold;
-      font-style: italic;
-      font-size: 32px;
-      background-color: brown;
-      padding: 15px;
-      display: inline-block;
-      margin-bottom: 20px;
-    }
+.main-content{
+    flex:1;
+    display:flex;
+    justify-content:space-between;
+    gap:40px;
+    padding:40px 60px;
+}
 
-    .box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 550px;
-    }
+.calculator-panel{
+    width:650px;
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
 
-    input {
-      width: 100%;
-      padding: 8px;
-      margin: 5px 0 15px 0;
-      box-sizing: border-box;
-    }
+.section-title{
+    font-size:28px;
+    color:#0d47a1;
+    font-weight:bold;
+    margin-bottom:25px;
+}
 
-    label {
-      font-weight: bold;
-      display: block;
-    }
+.info-box{
+    background:#f5f7fa;
+    border-left:5px solid #FFA700;
+    padding:15px;
+    margin-bottom:25px;
+    border-radius:8px;
+}
 
-    button {
-      padding: 10px;
-      width: 100%;
-      background: orange;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:15px;
+    margin-bottom:5px;
+}
 
-    .result {
-      margin-top: 15px;
-      font-size: 20px;
-      font-weight: bold;
+input[type="number"]{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.checkbox-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:15px;
+}
+
+.checkbox-row label{
+    margin:0;
+}
+
+.calc-btn{
+    width:100%;
+    margin-top:25px;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #1565c0,
+        #0d47a1
+    );
+
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+
+    box-shadow:0 6px 15px rgba(0,0,0,.25);
+
+    transition:.25s;
+}
+
+.calc-btn:hover{
+    background:linear-gradient(
+        135deg,
+        #1976d2,
+        #0b3c91
+    );
+
+    transform:translateX(8px) scale(1.03);
+}
+
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:10px;
+    background:#f8f8f8;
+    font-size:18px;
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.right-panel{
+    width:600px;
+}
+
+.iframe-container{
+    width:100%;
+    height:700px;
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.iframe-container iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.loader-container{
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.loader{
+    width:70px;
+    height:70px;
+    border:8px solid #ddd;
+    border-top:8px solid #1565c0;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
     }
-  </style>
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+footer{
+    width:100%;
+    background:#111;
+    color:#ccc;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    border-top:2px solid #222;
+}
+
+.footer-btn{
+    background:#0d47a1;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.footer-btn:hover{
+    background:#1565c0;
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="top-text">Welcome! Form:</div>
+<div class="top-header">
+    Pallet-Profitability-Calculator
+</div>
 
-  <div class="box">
-    <p>for sales team number 2 ------------------------------------------------------</p>
-  </div>
+<div class="sub-header">
+    Sales Team 2 Profit Calculator
+</div>
 
-  <div class="top-text">
-    Pallet Profitability Calculator
-  </div>
+<div class="main-content">
 
-  <div class="box">
+    <div class="calculator-panel">
 
-    <label>Total Purchasing Cost (£)</label>
-    <input id="purchasecost" type="number">
+        <div class="section-title">
+            Profitability Calculator
+        </div>
 
-    <label>Number of Pallets</label>
-    <input id="pallet" type="number">
+        <div class="info-box">
+            For Sales Team Number 2
+        </div>
 
-    <label>
-      <input id="stackable" type="checkbox">
-      Stackable Pallets?
-    </label>
+        <label>Total Purchasing Cost (£)</label>
+        <input id="purchasecost" type="number">
 
-    <label>Storage Hours</label>
-    <input id="hours" type="number">
+        <label>Number of Pallets</label>
+        <input id="pallet" type="number">
 
-    <label>Lorry Cost (£)</label>
-    <input id="lorry" type="number">
+        <div class="checkbox-row">
+            <input id="stackable" type="checkbox">
+            <label>Stackable Pallets</label>
+        </div>
 
-    <button onclick="calculateProfit()">Calculate Profit</button>
+        <label>Storage Hours</label>
+        <input id="hours" type="number">
 
-    <div class="result" id="result"></div>
+        <label>Lorry Cost (£)</label>
+        <input id="lorry" type="number">
 
-  </div>
+        <button class="calc-btn" onclick="calculateProfit()">
+            Calculate Profit
+        </button>
 
-  <script>
-    function calculateProfit() {
+        <div class="result" id="result"></div>
 
-      const deliverycost = 4.24;
-      const averageSalePrice = 80;
+    </div>
 
-      let purchasecost =
+    <div class="right-panel">
+
+        <div class="iframe-container">
+            <iframe
+                src="calculator.html"
+                title="Calculator Reference">
+            </iframe>
+        </div>
+
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <div>
+        © 2026 Pallet Profitability Calculator | Internal Sales Tools Dashboard
+    </div>
+
+    <button
+        class="footer-btn"
+        onclick="location.href='index.html'">
+        Back To Menu
+    </button>
+
+</footer>
+
+<script>
+
+function calculateProfit() {
+
+    const deliverycost = 4.24;
+    const averageSalePrice = 80;
+
+    let purchasecost =
         parseFloat(document.getElementById("purchasecost").value) || 0;
 
-      let pallet =
+    let pallet =
         parseFloat(document.getElementById("pallet").value) || 0;
 
-      let hours =
+    let hours =
         parseInt(document.getElementById("hours").value) || 0;
 
-      let lorry =
+    let lorry =
         parseFloat(document.getElementById("lorry").value) || 0;
 
-      let stackable =
+    let stackable =
         document.getElementById("stackable").checked;
 
-      let revenue = pallet * averageSalePrice;
+    let revenue =
+        pallet * averageSalePrice;
 
-      let totaldelcost = deliverycost + (1.72 * hours);
+    let totaldelcost =
+        deliverycost + (1.72 * hours);
 
-      let transportCost = 0;
+    let transportCost = 0;
 
-      if (stackable) {
+    if (stackable) {
 
         if (pallet <= 52) {
-          transportCost = lorry;
-        } else if (pallet <= 104) {
-          transportCost = lorry * 2;
-        } else {
-          document.getElementById("result").innerText =
-            "We don't go that far yet.";
-          return;
+            transportCost = lorry;
+        }
+        else if (pallet <= 104) {
+            transportCost = lorry * 2;
+        }
+        else {
+            document.getElementById("result").innerHTML =
+                "<strong>We don't go that far yet.</strong>";
+            return;
         }
 
-      } else {
+    } else {
 
         if (pallet <= 26) {
-          transportCost = lorry;
-        } else if (pallet <= 52) {
-          transportCost = lorry * 2;
-        } else {
-          document.getElementById("result").innerText =
-            "What do you think this is?";
-          return;
+            transportCost = lorry;
         }
-      }
+        else if (pallet <= 52) {
+            transportCost = lorry * 2;
+        }
+        else {
+            document.getElementById("result").innerHTML =
+                "<strong>What do you think this is?</strong>";
+            return;
+        }
+    }
 
-      let profit =
+    let profit =
         revenue -
         totaldelcost -
         transportCost -
         purchasecost;
 
-      document.getElementById("result").innerHTML =
+    document.getElementById("result").innerHTML =
         "Revenue: £" + revenue.toFixed(2) + "<br>" +
         "Pallets: " + pallet + "<br>" +
         "Storage Cost: £" + totaldelcost.toFixed(2) + "<br>" +
         "Transport Cost: £" + transportCost.toFixed(2) + "<br>" +
         "Purchase Cost: £" + purchasecost.toFixed(2) + "<br><br>" +
-        "<strong>Estimated Profit: £" + profit.toFixed(2) + "</strong>";
-    }
-  </script>
+        "<strong>Estimated Profit: £" +
+        profit.toFixed(2) +
+        "</strong>";
+}
 
-  <div class="loader-container">
-    <div class="loader"></div>
-  </div>
-
-  <div class="iframe-container">
-    <iframe
-      src="calculator.html"
-      title="praise the omnisiah this works">
-    </iframe>
-  </div>
+</script>
 
 </body>
 </html>
+```
