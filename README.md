@@ -1,0 +1,23 @@
+this
+is
+a
+project
+in
+which
+there
+are
+3
+sales teams
+and 
+there
+is
+a
+calculator
+for
+each
+of
+them
+and
+several
+other
+features
