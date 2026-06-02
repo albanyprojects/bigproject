@@ -154,7 +154,7 @@ input[type="number"]{
 }
 
 .loader-container{
-    display:flex;
+    display:none;
     justify-content:center;
     margin-top:20px;
 }
@@ -263,7 +263,7 @@ footer{
             </iframe>
         </div>
 
-        <div class="loader-container">
+        <div class="loader-container" id="loader">
             <div class="loader"></div>
         </div>
 
@@ -283,55 +283,68 @@ footer{
 </footer>
 
 <script>
+    function showLoader(show){
+    document.getElementById("loader").style.display =
+        show ? "flex" : "none";
+}
 function calculateProfit() {
 
-    const deliverycost = 4.24;
+    showLoader(true);
 
-    let sale =
-        parseFloat(document.getElementById("sale").value) || 0;
+    setTimeout(() => {
 
-    let purchasecost =
-        parseFloat(document.getElementById("purchasecost").value) || 0;
+        const deliverycost = 4.24;
 
-    let pallet =
-        parseFloat(document.getElementById("pallet").value) || 0;
+        let sale =
+            parseFloat(document.getElementById("sale").value) || 0;
 
-    let hours =
-        parseInt(document.getElementById("hours").value) || 0;
+        let purchasecost =
+            parseFloat(document.getElementById("purchasecost").value) || 0;
 
-    let lorry =
-        parseFloat(document.getElementById("lorry").value) || 0;
+        let pallet =
+            parseFloat(document.getElementById("pallet").value) || 0;
 
-    let stackable =
-        document.getElementById("stackable").checked;
+        let hours =
+            parseFloat(document.getElementById("hours").value) || 0;
 
-    let totaldelcost =
-        deliverycost +
-        (0.24571428571428572 * hours);
+        let lorry =
+            parseFloat(document.getElementById("lorry").value) || 0;
 
-    let capacityPerLorry =
-        stackable ? 52 : 26;
+        let stackable =
+            document.getElementById("stackable").checked;
 
-    let lorriesNeeded =
-        Math.ceil(pallet / capacityPerLorry);
+        let totaldelcost =
+            deliverycost +
+            (0.24571428571428572 * hours);
 
-    let transportCost =
-        lorriesNeeded * lorry;
+        let capacityPerLorry =
+            stackable ? 52 : 26;
 
-    let profit =
-        sale -
-        totaldelcost -
-        transportCost -
-        purchasecost;
+        let lorriesNeeded =
+            Math.ceil(pallet / capacityPerLorry);
 
-    document.getElementById("result").innerHTML =
-        "Revenue: £" + sale.toFixed(2) + "<br>" +
-        "Storage Cost: £" + totaldelcost.toFixed(2) + "<br>" +
-        "Transport Cost: £" + transportCost.toFixed(2) + "<br>" +
-        "Purchase Cost: £" + purchasecost.toFixed(2) + "<br><br>" +
-        "<strong>Estimated Profit: £" +
-        profit.toFixed(2) +
-        "</strong>";
+        let transportCost =
+            lorriesNeeded * lorry;
+
+        let profit =
+            sale -
+            totaldelcost -
+            transportCost -
+            purchasecost;
+
+        document.getElementById("result").innerHTML =
+            "Revenue: £" + sale.toFixed(2) + "<br>" +
+            "Storage Cost: £" + totaldelcost.toFixed(2) + "<br>" +
+            "Transport Cost: £" + transportCost.toFixed(2) + "<br>" +
+            "Purchase Cost: £" + purchasecost.toFixed(2) + "<br>" +
+            "Lorries Required: " + lorriesNeeded + "<br><br>" +
+            "<strong>Estimated Profit: £" +
+            profit.toFixed(2) +
+            "</strong>";
+
+        showLoader(false);
+
+    }, 500);
 }
 </script>
 
