@@ -109,28 +109,16 @@ input[type="number"]{
     border-radius:14px;
     cursor:pointer;
 
-    background:linear-gradient(
-        135deg,
-        #1565c0,
-        #0d47a1
-    );
-
+    background:linear-gradient(135deg,#1565c0,#0d47a1);
     color:white;
     font-size:18px;
     font-weight:bold;
-
     box-shadow:0 6px 15px rgba(0,0,0,.25);
-
     transition:.25s;
 }
 
 .calc-btn:hover{
-    background:linear-gradient(
-        135deg,
-        #1976d2,
-        #0b3c91
-    );
-
+    background:linear-gradient(135deg,#1976d2,#0b3c91);
     transform:translateX(8px) scale(1.03);
 }
 
@@ -163,7 +151,7 @@ input[type="number"]{
 }
 
 .loader-container{
-    display:flex;
+    display:none;
     justify-content:center;
     margin-top:20px;
 }
@@ -178,12 +166,8 @@ input[type="number"]{
 }
 
 @keyframes spin{
-    from{
-        transform:rotate(0deg);
-    }
-    to{
-        transform:rotate(360deg);
-    }
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
 }
 
 footer{
@@ -258,19 +242,16 @@ footer{
 
         <div class="result" id="result"></div>
 
+        <div class="loader-container" id="loader">
+            <div class="loader"></div>
+        </div>
+
     </div>
 
     <div class="right-panel">
 
         <div class="iframe-container">
-            <iframe
-                src="calculator.html"
-                title="Calculator Reference">
-            </iframe>
-        </div>
-
-        <div class="loader-container">
-            <div class="loader"></div>
+            <iframe src="calculator.html" title="Calculator Reference"></iframe>
         </div>
 
     </div>
@@ -283,9 +264,7 @@ footer{
         © 2026 Pallet Profitability Calculator | Internal Sales Tools Dashboard
     </div>
 
-    <button
-        class="footer-btn"
-        onclick="location.href='index.html'">
+    <button class="footer-btn" onclick="location.href='index.html'">
         Back To Menu
     </button>
 
@@ -293,82 +272,77 @@ footer{
 
 <script>
 
+function showLoader(show){
+    document.getElementById("loader").style.display =
+        show ? "flex" : "none";
+}
+
 function calculateProfit() {
 
-    const deliverycost = 4.24;
-    const averageSalePrice = 80;
+    showLoader(true);
 
-    let purchasecost =
-        parseFloat(document.getElementById("purchasecost").value) || 0;
+    setTimeout(() => {
 
-    let pallet =
-        parseFloat(document.getElementById("pallet").value) || 0;
+        const deliverycost = 4.24;
+        const averageSalePrice = 80;
 
-    let hours =
-        parseInt(document.getElementById("hours").value) || 0;
+        let purchasecost =
+            parseFloat(document.getElementById("purchasecost").value) || 0;
 
-    let lorry =
-        parseFloat(document.getElementById("lorry").value) || 0;
+        let pallet =
+            parseFloat(document.getElementById("pallet").value) || 0;
 
-    let stackable =
-        document.getElementById("stackable").checked;
+        let hours =
+            parseInt(document.getElementById("hours").value) || 0;
 
-    let revenue =
-        pallet * averageSalePrice;
+        let lorry =
+            parseFloat(document.getElementById("lorry").value) || 0;
 
-    let totaldelcost =
-        deliverycost + (1.72 * hours);
+        let stackable =
+            document.getElementById("stackable").checked;
 
-    let transportCost = 0;
+        let revenue = pallet * averageSalePrice;
+        let totaldelcost = deliverycost + (1.72 * hours);
 
-    if (stackable) {
+        let transportCost = 0;
 
-        if (pallet <= 52) {
-            transportCost = lorry;
+        if (stackable) {
+            if (pallet <= 52) transportCost = lorry;
+            else if (pallet <= 104) transportCost = lorry * 2;
+            else {
+                document.getElementById("result").innerHTML =
+                    "<strong>We don't go that far yet.</strong>";
+                showLoader(false);
+                return;
+            }
+        } else {
+            if (pallet <= 26) transportCost = lorry;
+            else if (pallet <= 52) transportCost = lorry * 2;
+            else {
+                document.getElementById("result").innerHTML =
+                    "<strong>What do you think this is?</strong>";
+                showLoader(false);
+                return;
+            }
         }
-        else if (pallet <= 104) {
-            transportCost = lorry * 2;
-        }
-        else {
-            document.getElementById("result").innerHTML =
-                "<strong>We don't go that far yet.</strong>";
-            return;
-        }
 
-    } else {
+        let profit =
+            revenue - totaldelcost - transportCost - purchasecost;
 
-        if (pallet <= 26) {
-            transportCost = lorry;
-        }
-        else if (pallet <= 52) {
-            transportCost = lorry * 2;
-        }
-        else {
-            document.getElementById("result").innerHTML =
-                "<strong>What do you think this is?</strong>";
-            return;
-        }
-    }
+        document.getElementById("result").innerHTML =
+            "Revenue: £" + revenue.toFixed(2) + "<br>" +
+            "Pallets: " + pallet + "<br>" +
+            "Storage Cost: £" + totaldelcost.toFixed(2) + "<br>" +
+            "Transport Cost: £" + transportCost.toFixed(2) + "<br>" +
+            "Purchase Cost: £" + purchasecost.toFixed(2) + "<br><br>" +
+            "<strong>Estimated Profit: £" + profit.toFixed(2) + "</strong>";
 
-    let profit =
-        revenue -
-        totaldelcost -
-        transportCost -
-        purchasecost;
+        showLoader(false);
 
-    document.getElementById("result").innerHTML =
-        "Revenue: £" + revenue.toFixed(2) + "<br>" +
-        "Pallets: " + pallet + "<br>" +
-        "Storage Cost: £" + totaldelcost.toFixed(2) + "<br>" +
-        "Transport Cost: £" + transportCost.toFixed(2) + "<br>" +
-        "Purchase Cost: £" + purchasecost.toFixed(2) + "<br><br>" +
-        "<strong>Estimated Profit: £" +
-        profit.toFixed(2) +
-        "</strong>";
+    }, 500);
 }
 
 </script>
 
 </body>
 </html>
-
