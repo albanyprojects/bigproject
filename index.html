@@ -7,7 +7,7 @@
 
     <style>
         * {
-            box-sizing: border-box;
+            box-sizing: bordx;
         }
 
         body {
@@ -37,6 +37,29 @@
             font-size: 40px;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+
+        .review-btn {
+            background: white;
+            color: #0d47a1;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .review-btn:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
         }
 
         .sub-header {
@@ -173,8 +196,17 @@
 <body>
 
     <div class="top-header">
+
+    <div>
         Pallet-Profitability-Calculator-Index
     </div>
+
+    <button class="review-btn"
+            onclick="location.href='review.html'">
+        Leave a Review
+    </button>
+
+</div>
 
     <div class="sub-header">
         Select Your Calculator Formula Below
