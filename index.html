@@ -285,15 +285,15 @@
         function resetSite() {
             location.reload();
 
-    function acceptCookies() {
-    localStorage.setItem("cookiesAccepted", "true");
-    document.getElementById('cookiePopup').classList.add('hidden');
-}
-
-window.onload = function () {
-    if (localStorage.getItem("cookiesAccepted") === "true") {
+        function acceptCookies() {
+        localStorage.setItem("cookiesAccepted", "true");
         document.getElementById('cookiePopup').classList.add('hidden');
     }
+
+    window.onload = function () {
+        if (localStorage.getItem("cookiesAccepted") === "true") {
+            document.getElementById('cookiePopup').classList.add('hidden');
+        }
 };
 
 
