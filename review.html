@@ -117,20 +117,13 @@ button:hover{
 
 <script>
 
-// Example review loading function
+
 async function loadReviews(){
 
     const reviewsContainer =
         document.getElementById("reviews");
 
     reviewsContainer.innerHTML = "";
-
-    /*
-    Replace this section with your database call.
-    Example:
-    const response = await fetch('/api/reviews');
-    const reviews = await response.json();
-    */
 
     const reviews = [];
 
@@ -170,20 +163,8 @@ async function submitReview(){
         return;
     }
 
-    /*
-    Replace with your backend API:
 
-    await fetch('/api/reviews', {
-        method: 'POST',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify({
-            name:name,
-            text:review
-        })
-    });
-    */
+
 
     document.getElementById("status").textContent =
         "Review submitted.";
