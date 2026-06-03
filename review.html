@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Reviews</title>
 
+<style>
+body{
+    margin:0;
+    padding:20px;
+    background:#C98754;
+    font-family:Arial, sans-serif;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+    text-align:center;
+}
+
+.review-form{
+    margin-bottom:30px;
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
+}
+
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+button{
+    background:#333;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#555;
+}
+
+.review{
+    border-bottom:1px solid #ddd;
+    padding:15px 0;
+}
+
+.review:last-child{
+    border-bottom:none;
+}
+
+.review-name{
+    font-weight:bold;
+}
+
+.review-date{
+    color:#777;
+    font-size:14px;
+}
+
+.review-text{
+    margin-top:8px;
+}
+
+.status{
+    color:green;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Leave a Review</h1>
+
+    <div class="review-form">
+
+        <label>Your Name</label>
+        <input type="text" id="name">
+
+        <label>Your Review</label>
+        <textarea id="review"></textarea>
+
+        <button onclick="submitReview()">Submit Review</button>
+
+        <div class="status" id="status"></div>
+
+    </div>
+
+    <h2>Community Reviews</h2>
+
+    <div id="reviews">
+        Loading reviews...
+    </div>
+
+</div>
+
+<script>
+
+// Example review loading function
+async function loadReviews(){
+
+    const reviewsContainer =
+        document.getElementById("reviews");
+
+    reviewsContainer.innerHTML = "";
+
+    /*
+    Replace this section with your database call.
+    Example:
+    const response = await fetch('/api/reviews');
+    const reviews = await response.json();
+    */
+
+    const reviews = [];
+
+    if(reviews.length === 0){
+        reviewsContainer.innerHTML =
+            "<p>No reviews yet.</p>";
+        return;
+    }
+
+    reviews.forEach(review => {
+
+        const div = document.createElement("div");
+        div.className = "review";
+
+        div.innerHTML = `
+            <div class="review-name">${review.name}</div>
+            <div class="review-date">${review.date}</div>
+            <div class="review-text">${review.text}</div>
+        `;
+
+        reviewsContainer.appendChild(div);
+
+    });
+
+}
+
+async function submitReview(){
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const review =
+        document.getElementById("review").value.trim();
+
+    if(!name || !review){
+        alert("Please complete all fields.");
+        return;
+    }
+
+    /*
+    Replace with your backend API:
+
+    await fetch('/api/reviews', {
+        method: 'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            name:name,
+            text:review
+        })
+    });
+    */
+
+    document.getElementById("status").textContent =
+        "Review submitted.";
+
+    document.getElementById("name").value = "";
+    document.getElementById("review").value = "";
+
+    loadReviews();
+}
+
+loadReviews();
+
+</script>
+
+</body>
+</html>
+```
