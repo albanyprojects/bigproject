@@ -7,7 +7,7 @@
 
     <style>
         * {
-            box-sizing: bordx;
+            box-sizing: border-box;
         }
 
         body {
@@ -26,7 +26,24 @@
 
         body.locked {
             overflow: hidden;
-            pointer-events: none;
+        }
+
+        .disabled-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10000;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .disabled-overlay.show {
+            display: flex;
         }
 
         .top-header {
@@ -42,8 +59,6 @@
             justify-content: space-between;
             align-items: center;
         }
-
-
 
         .review-btn {
             background: white;
@@ -101,18 +116,16 @@
             letter-spacing: 0.5px;
 
             box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-
             transition: all 0.25s ease;
         }
 
         .nav-button:hover {
             background: linear-gradient(135deg, #1976d2, #0b3c91);
-            transform: translateX(16px) scale(1.125);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+            transform: translateX(16px) scale(1.08);
         }
 
         .nav-button:active {
-            transform: scale(0.9563123456789101112131415161718192021222324242526126272829230);
+            transform: scale(0.96);
         }
 
         .logo-container {
@@ -155,6 +168,7 @@
         .footer-btn:hover {
             background: #1565c0;
         }
+
         .cookie-popup {
             position: fixed;
             bottom: 0;
@@ -178,36 +192,28 @@
             font-weight: bold;
         }
 
-        .accept {
-            background: #2e7d32;
-            color: white;
-        }
+        .accept { background: #2e7d32; color: white; }
+        .decline { background: #c62828; color: white; }
 
-        .decline {
-            background: #c62828;
-            color: white;
-        }
-
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
     </style>
 </head>
 
 <body>
 
-    <div class="top-header">
-
-    <div>
-        Pallet-Profitability-Calculator-Index
+    <!-- DISABLED / ACCESS BLOCK OVERLAY -->
+    <div class="disabled-overlay" id="accessDenied">
+        <h1>Access Denied</h1>
+        <p>You must accept cookies to continue using this site.</p>
+        <button class="footer-btn" onclick="resetSite()">Reload Page</button>
     </div>
 
-    <button class="review-btn"
-            onclick="location.href='review.html'">
-        Leave a Review
-    </button>
-
-</div>
+    <div class="top-header">
+        <div>Pallet-Profitability-Calculator-Index</div>
+        <button class="review-btn" onclick="location.href='review.html'">
+            Leave a Review
+        </button>
+    </div>
 
     <div class="sub-header">
         Select Your Calculator Formula Below
@@ -216,7 +222,6 @@
     <div class="main-content">
 
         <div class="container">
-
             <button class="nav-button" onclick="location.href='sales1.html'">
                 Sales Calculator
             </button>
@@ -228,7 +233,6 @@
             <button class="nav-button" onclick="location.href='sales3.html'">
                 Profitability and Margins Calculator
             </button>
-
         </div>
 
         <div class="logo-container">
@@ -238,19 +242,27 @@
     </div>
 
     <footer>
-        <div>© 2026 Pallet Profitability Calculator | Internal Sales Tools Dashboard, plese visit https://www.albanyproducts.co.uk/ for more on our business</div>
-            <div>
-        <button class="footer-btn" onclick="location.href='privacy.html'">
-            Privacy Policy
-        </button>
-        <button class="footer-btn" onclick="location.href='terms.html'">
-            Terms & Conditions
-        </button>
+        <div>
+            © 2026 Pallet Profitability Calculator | Internal Sales Tools Dashboard, please visit
+            https://www.albanyproducts.co.uk/
+        </div>
+
+        <div>
+            <button class="footer-btn" onclick="location.href='privacy.html'">
+                Privacy Policy
+            </button>
+            <button class="footer-btn" onclick="location.href='terms.html'">
+                Terms & Conditions
+            </button>
+        </div>
     </footer>
+
+    <!-- COOKIE POPUP -->
     <div class="cookie-popup" id="cookiePopup">
         <div>
             This site uses cookies to function properly. Do you accept cookies to continue?
         </div>
+
         <div>
             <button class="accept" onclick="acceptCookies()">Accept</button>
             <button class="decline" onclick="declineCookies()">Decline</button>
@@ -263,8 +275,15 @@
         }
 
         function declineCookies() {
-            alert("Cookies are nessesary for your continued access to this site and its subdomains");
-            document.body.innerHTML = "<h1 style='text-align:center;margin-top:50px;'>Access Denied</h1>";
+            alert("Cookies are necessary for your continued access to this site.");
+
+            document.body.classList.add('locked');
+            document.getElementById('cookiePopup').classList.add('hidden');
+            document.getElementById('accessDenied').classList.add('show');
+        }
+
+        function resetSite() {
+            location.reload();
         }
     </script>
 
